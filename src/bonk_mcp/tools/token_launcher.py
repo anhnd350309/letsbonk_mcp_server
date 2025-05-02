@@ -7,14 +7,15 @@ import aiohttp
 from mcp.types import TextContent, Tool, ImageContent, EmbeddedResource
 from solders.keypair import Keypair
 
-from bonk_mcp.core.letsbonk import launch_token_with_buy
-from bonk_mcp.utils import prepare_ipfs
-from bonk_mcp.settings import KEYPAIR
+from src.bonk_mcp.core.letsbonk import launch_token_with_buy
+from src.bonk_mcp.utils import prepare_ipfs
+from src.bonk_mcp.settings import KEYPAIR
 
 # --- Test Constants ---
 TEST_SOLANA_WALLET = "49YLjLh5NXTPaGZwbSrnPj6CqgwH2CHjKS1gk8L6w86e"
 TEST_SOLANA_CA = "2ENzpXfWQgyPkC6yGrghtb9HGXnk3s5e663tPxU8bonk"
 TEST_TRANSACTION_HASH = "2P358v91nSeszWtBLQ8RND4Yzp2hS6dt957KAWk9NYSte1xmNJyFYkQzpzroRtN8Uu5aAdr8Q3yieVLuKc8r62JK"
+
 
 class TokenLauncherTool:
     """Tool for launching meme tokens on Solana using the Raydium launchpad"""

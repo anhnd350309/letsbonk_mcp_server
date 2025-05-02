@@ -7,14 +7,13 @@ on the Raydium Launchpad platform.
 
 import struct
 import traceback
-import asyncio
 from solana.transaction import AccountMeta, Transaction
 from solders.pubkey import Pubkey
 from solders.instruction import Instruction
 from solders.keypair import Keypair
 from typing import Dict, Optional, Tuple, List, Union
 
-from bonk_mcp.utils import (
+from src.bonk_mcp.utils import (
     buffer_from_string,
     setup_transaction,
     create_or_get_token_account,
@@ -24,7 +23,7 @@ from bonk_mcp.utils import (
 )
 
 # Import settings
-from bonk_mcp.settings import (
+from src.bonk_mcp.settings import (
     client,
     KEYPAIR,
     TOKEN_DECIMAL,

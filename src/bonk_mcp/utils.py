@@ -15,7 +15,7 @@ from solders.instruction import Instruction
 from solders.keypair import Keypair
 from solders.compute_budget import set_compute_unit_limit, set_compute_unit_price
 
-from bonk_mcp.settings import (
+from src.bonk_mcp.settings import (
     client,
     UNIT_PRICE,
     UNIT_BUDGET,
