@@ -138,10 +138,14 @@ class TokenLauncherTool:
             f"🧪 Test Transaction Hash: {TEST_TRANSACTION_HASH}\n"
         )
 
-        return [TextContent(
-            type="text",
-            text=response_text
-        )]
+        response = {
+            "mint_address": mint_address,
+            "pool_state": pdas["pool_state"],
+            "uri": uri,
+            "image_url": image_url
+        }
+
+        return response
 
     def get_tool_definition(self) -> Tool:
         """Get the tool definition for MCP"""

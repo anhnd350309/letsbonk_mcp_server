@@ -53,6 +53,13 @@ async def launch_token(arguments: TokenLaunchRequest):
     This endpoint processes token launch requests and returns the status.
     """
     try:
+        if settings.ENVIRONMENT == "dev":
+            return {
+                "mint_address": "7Z7zLN3TWN49YYWLCkH4neCoJ4UAGvxsFZz2Ho3D9kQ",
+                "pool_state": "B9M9mAixNDP7hJkxVGZNQXhYEae6K9PBxGnavR3zhHXi",
+                "uri": "https://sapphire-working-koi-276.mypinata.cloud/ipfs/bafkreibhmzxivrpgy53jiyb4pjk2x4chm5arimzppyky6zgluiltclwhiy/nImage",
+                "image_url": "https://img.cryptorank.io/coins/bonk1672306100278.png"
+            }
         # In a real implementation, this would interact with the Solana blockchain
         # using the solana and solders packages from requirements.txt
 

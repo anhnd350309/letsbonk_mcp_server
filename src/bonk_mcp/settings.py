@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv(override=True)
 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
+
 KEYPAIR = os.getenv("KEYPAIR")
 BIRDEYE_API_KEY = os.getenv("BIRDEYE_API_KEY")
 
