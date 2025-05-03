@@ -64,3 +64,5 @@ LAUNCHPAD_POOL_VAULT_SEED = "pool_vault".encode()
 # Get RPC URL from environment variable, fallback to Solana devnet
 RPC_URL = os.getenv("RPC_URL", "https://api.devnet.solana.com")
 client = AsyncClient(RPC_URL)
+
+DEFAULT_IMAGE_URL = "https://img.cryptorank.io/coins/bonk1672306100278.png"

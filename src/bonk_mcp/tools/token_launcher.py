@@ -7,6 +7,7 @@ import aiohttp
 from mcp.types import TextContent, Tool, ImageContent, EmbeddedResource
 from solders.keypair import Keypair
 
+from src.bonk_mcp import settings
 from src.bonk_mcp.core.letsbonk import launch_token_with_buy
 from src.bonk_mcp.utils import prepare_ipfs
 from src.bonk_mcp.settings import KEYPAIR
@@ -54,7 +55,8 @@ class TokenLauncherTool:
         twitter = arguments.get("twitter", "")
         telegram = arguments.get("telegram", "")
         website = arguments.get("website", "")
-        image_url = arguments.get("image_url", "")
+        image_url = arguments.get(
+            "image_url", settings.DEFAULT_IMAGE_URL)
 
         # Validate required arguments
         if not name or not symbol or not description or not image_url:

@@ -1,9 +1,10 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import uvicorn
 from typing import Optional
 import uuid
 from datetime import datetime
+from src.bonk_mcp import settings
 from src.bonk_mcp.tools import token_launcher_tool, token_buyer_tool
 
 # Initialize FastAPI app
@@ -23,7 +24,7 @@ class TokenLaunchRequest(BaseModel):
     twitter: Optional[str] = None
     telegram: Optional[str] = None
     website: Optional[str] = None
-    image_url: str
+    image_url: str = Field(default=settings.DEFAULT_IMAGE_URL)
 
 
 class TokenBuyerRequest(BaseModel):
