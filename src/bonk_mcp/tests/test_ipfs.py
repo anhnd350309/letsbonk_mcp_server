@@ -12,7 +12,7 @@ from typing import Optional, Dict, Tuple
 from pprint import pprint
 
 # Import the utility functions directly
-from bonk_mcp.utils import prepare_ipfs
+from src.bonk_mcp.utils import prepare_ipfs
 
 
 async def test_prepare_ipfs(

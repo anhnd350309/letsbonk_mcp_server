@@ -392,7 +392,7 @@ async def get_close_wsol_instruction(
         Close account instruction
     """
     from spl.token.instructions import close_account, CloseAccountParams
-    from bonk_mcp.settings import TOKEN_PROGRAM
+    from src.bonk_mcp.settings import TOKEN_PROGRAM
 
     close_wsol_account_ix = close_account(
         CloseAccountParams(
