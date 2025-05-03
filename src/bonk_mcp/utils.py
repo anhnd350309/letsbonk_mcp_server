@@ -310,10 +310,11 @@ def calculate_tokens_receive(sol_amount, previous_sol=30, slippage=5):
 
     # Calculate difference in tokens
     tokens_received = (new_tokens - current_tokens) / TOKEN_DECIMALS * 1
+    min_token_received = tokens_received * (1 - slippage/100)
     max_sol_cost = sol_amount * (1 + slippage/100)
 
     return {
-        "token_amount": tokens_received,
+        "token_amount": min_token_received,
         "max_sol_cost": max_sol_cost
     }
 
@@ -392,7 +393,7 @@ async def get_close_wsol_instruction(
         Close account instruction
     """
     from spl.token.instructions import close_account, CloseAccountParams
-    from bonk_mcp.settings import TOKEN_PROGRAM
+    from src.bonk_mcp.settings import TOKEN_PROGRAM
 
     close_wsol_account_ix = close_account(
         CloseAccountParams(

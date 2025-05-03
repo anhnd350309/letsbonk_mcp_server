@@ -25,6 +25,12 @@ class TokenLaunchRequest(BaseModel):
     website: Optional[str] = None
     image_url: str
 
+
+class TokenBuyerRequest(BaseModel):
+    token_address: str
+    amount_sol: float
+    slippage: Optional[float] = 5.0  # Default to 5% slippage
+
 # Model for token launch response
 
 
@@ -59,7 +65,7 @@ async def launch_token(arguments: TokenLaunchRequest):
 
 
 @app.post("/buy-token")
-async def buy_token(arguments: TokenLaunchRequest):
+async def buy_token(arguments: TokenBuyerRequest):
     """
     Buy a Bonk token from the specified address
 
@@ -72,7 +78,7 @@ async def buy_token(arguments: TokenLaunchRequest):
         # Generate a unique ID for this token purchase
 
         # Return the response with purchase details
-        return await token_launcher_tool.execute(arguments.model_dump())
+        return await token_buyer_tool.execute(arguments.model_dump())
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Token purchase failed: {str(e)}")
