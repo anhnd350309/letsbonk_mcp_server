@@ -42,6 +42,7 @@ class TokenBuyerTool:
         token_address = arguments.get("token_address")
         amount_sol = arguments.get("amount_sol")
         slippage = arguments.get("slippage", 5)  # Default to 5% slippage
+        keypair = arguments.get("keypair")
 
         # Validate required arguments
         if not token_address or not amount_sol:
@@ -51,7 +52,7 @@ class TokenBuyerTool:
             )]
 
         # Get the payer keypair from settings
-        if not KEYPAIR:
+        if not keypair:
             return [TextContent(
                 type="text",
                 text="Error: No keypair configured in settings. Please set the KEYPAIR environment variable."
@@ -59,7 +60,7 @@ class TokenBuyerTool:
 
         try:
             # Convert the private key to a Keypair
-            private_key_bytes = base58.b58decode(KEYPAIR)
+            private_key_bytes = base58.b58decode(keypair)
             payer_keypair = Keypair.from_bytes(private_key_bytes)
         except Exception as e:
             return [TextContent(

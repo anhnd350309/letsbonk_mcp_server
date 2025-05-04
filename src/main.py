@@ -31,6 +31,7 @@ class TokenBuyerRequest(BaseModel):
     token_address: str
     amount_sol: float
     slippage: Optional[float] = 5.0  # Default to 5% slippage
+    keypair: str  # Should be a base58 encoded string of the private key
 
 # Model for token launch response
 
