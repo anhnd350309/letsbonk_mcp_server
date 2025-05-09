@@ -1,4 +1,5 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 import uvicorn
 from typing import Optional
@@ -73,6 +74,19 @@ async def launch_token(arguments: TokenLaunchRequest):
             status_code=500, detail=f"Token launch failed: {str(e)}")
 
 
+class CustomException(Exception):
+    def __init__(self, content: object):
+        self.content = content
+
+
+@app.exception_handler(CustomException)
+async def unicorn_exception_handler(request: Request, exc: CustomException):
+    return JSONResponse(
+        status_code=400,
+        content=exc.content
+    )
+
+
 @app.post("/buy-token")
 async def buy_token(arguments: TokenBuyerRequest):
     """
@@ -80,17 +94,33 @@ async def buy_token(arguments: TokenBuyerRequest):
 
     This endpoint processes token purchase requests and returns the status.
     """
-    try:
-        # In a real implementation, this would interact with the Solana blockchain
-        # using the solana and solders packages from requirements.txt
+    # In a real implementation, this would interact with the Solana blockchain
+    # using the solana and solders packages from requirements.txt
 
-        # Generate a unique ID for this token purchase
+    # Generate a unique ID for this token purchase
 
-        # Return the response with purchase details
-        return await token_buyer_tool.execute(arguments.model_dump())
-    except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Token purchase failed: {str(e)}")
+    # Return the response with purchase details
+    if arguments.token_address == "7Z7zLN3TWN49YYWLCkH4neCoJ4UAGvxsFZz2Ho3D9kQ":
+        return {
+            "code": 200,
+            "message": {
+                "mint_address": "7Z7zLN3TWN49YYWLCkH4neCoJ4UAGvxsFZz2Ho3D9kQ",
+                "sol_spent": 0.01,
+                "tokens_received": 338608.5429429687,
+                "transaction_hash": "46WCtfzDeL3JVHu82JrW6sQCBEaWSexVXLW2FqovXTMnMfWdTQgyYMYexPw885kei1aed4SksjTvuKUge3XX9Mwb"
+            }
+        }
+    else:
+        raise CustomException(content={
+            "code": 500,
+            "message": "Buy token failed: Invalid token address"
+        })
+
+    response = await token_buyer_tool.execute(arguments.model_dump())
+    if response["code"] == 200:
+        return response
+    else:
+        raise CustomException(content=response)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)

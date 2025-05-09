@@ -76,11 +76,11 @@ class TokenBuyerTool:
             pdas = await derive_pdas(mint_pubkey)
             quote_vote_address = pdas["quote_vault"]
             quote_vault_balance = await get_token_account_balance(
-                quote_vote_address)
+                quote_vote_address)  # Convert to SOL
 
             # Calculate minimum tokens to receive based on slippage
             token_info = calculate_tokens_receive(
-                amount_sol, previous_sol=float(quote_vault_balance)+30, slippage=slippage)
+                amount_sol, previous_sol=float(quote_vault_balance), slippage=slippage)
             minimum_amount_out = token_info["token_amount"]
 
             # Create buy transaction
@@ -122,18 +122,27 @@ class TokenBuyerTool:
                 f"Transaction hash: {tx_hash}\n"
             )
 
-            return [TextContent(
-                type="text",
-                text=response_text
-            )]
+            print(response_text)
+
+            response = {
+                "mint_address": str(mint_pubkey),
+                "sol_spent": amount_sol,
+                "tokens_received": token_info["token_amount"],
+                "transaction_hash": tx_hash.__str__()
+            }
+
+            return {
+                "code": 200,
+                "message": response
+            }
 
         except Exception as e:
             error_msg = f"Error processing buy transaction: {str(e)}"
             print(error_msg)
-            return [TextContent(
-                type="text",
-                text=error_msg
-            )]
+            return {
+                "code": 500,
+                "message": error_msg
+            }
 
     def get_tool_definition(self) -> Tool:
         """Get the tool definition for MCP"""

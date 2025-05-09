@@ -289,18 +289,20 @@ async def prepare_ipfs(
         return None
 
 
-def calculate_tokens_receive(sol_amount, previous_sol=30, slippage=5):
+def calculate_tokens_receive(sol_amount, previous_sol, slippage=5):
     """
     Calculate tokens received for given SOL amount
     """
     LAMPORTS_PER_SOL = 10**9
     TOKEN_DECIMALS = 10**6
 
+    previous_sol_in_real = previous_sol / LAMPORTS_PER_SOL + 30
+
     INITIAL_TOKENS = 1073000191 * TOKEN_DECIMALS  # Convert to token units
     K = 32190005730 * TOKEN_DECIMALS  # Convert to token units
 
     # Convert SOL to lamports
-    previous_lamports = int(previous_sol * LAMPORTS_PER_SOL)
+    previous_lamports = int(previous_sol_in_real * LAMPORTS_PER_SOL)
     new_lamports = previous_lamports + int(sol_amount * LAMPORTS_PER_SOL)
 
     # Calculate tokens
