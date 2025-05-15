@@ -107,4 +107,4 @@ async def buy_token(arguments: TokenBuyerRequest):
         raise CustomException(content=response)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(app, host="::", port=8000, reload=True)
