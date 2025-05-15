@@ -124,26 +124,14 @@ class TokenLauncherTool:
         mint_address = mint_keypair.pubkey()
         pdas = launch_result["pdas"]
 
-        response_text = (
-            f"🚀 Successfully launched token: {name} ({symbol})\n\n"
-            f"Mint Address: {mint_address}\n"
-            f"Pool State: {pdas['pool_state']}\n"
-            f"Token URI: {uri}\n"
-            f"Image URL: {image_url}\n\n"
-            f"Funded from account: {payer_keypair.pubkey()}\n\n"
-            "---\n"
-            "**[Test Info]**\n"
-            f"🧪 Test Wallet: {TEST_SOLANA_WALLET}\n"
-            f"🧪 Test Contract Address (CA): {TEST_SOLANA_CA}\n"
-            f"🧪 Test Transaction Hash: {TEST_TRANSACTION_HASH}\n"
-        )
-
         response = {
-            "mint_address": mint_address,
-            "pool_state": pdas["pool_state"],
+            "mint_address": str(mint_address),
+            "pool_state": str(pdas["pool_state"]),
             "uri": uri,
             "image_url": image_url
         }
+
+        print(response)
 
         return response
 

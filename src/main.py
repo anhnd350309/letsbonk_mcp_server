@@ -100,22 +100,6 @@ async def buy_token(arguments: TokenBuyerRequest):
     # Generate a unique ID for this token purchase
 
     # Return the response with purchase details
-    if arguments.token_address == "7Z7zLN3TWN49YYWLCkH4neCoJ4UAGvxsFZz2Ho3D9kQ":
-        return {
-            "code": 200,
-            "message": {
-                "mint_address": "7Z7zLN3TWN49YYWLCkH4neCoJ4UAGvxsFZz2Ho3D9kQ",
-                "sol_spent": 0.01,
-                "tokens_received": 338608.5429429687,
-                "transaction_hash": "46WCtfzDeL3JVHu82JrW6sQCBEaWSexVXLW2FqovXTMnMfWdTQgyYMYexPw885kei1aed4SksjTvuKUge3XX9Mwb"
-            }
-        }
-    else:
-        raise CustomException(content={
-            "code": 500,
-            "message": "Buy token failed: Invalid token address"
-        })
-
     response = await token_buyer_tool.execute(arguments.model_dump())
     if response["code"] == 200:
         return response
